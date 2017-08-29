@@ -1,0 +1,27 @@
+from PIL import Image, ImageDraw, ImageFont
+
+def generate_empty_canvas(width, height, color='white'):
+    size = (width, height)
+    return Image.new('RGB', size, color=color)
+
+def draw_text(text, canvas):
+    font = ImageFont.truetype('Verdana.ttf', 350)
+    draw = ImageDraw.Draw(canvas)
+    W, H = (4500,5400)
+    w, h = draw.textsize(text)
+    if '\n' not in text:
+        draw.text(((W-w)/2.5,(H-h)/2.5), text, font=font, fill='black')
+    else:
+        draw.multiline_text(((W-w)/2.7,(H-h)/2.5), text, font=font, fill='black')
+
+def create_sample():
+    text = 'Unicorns \nUnite'
+    canvas = generate_empty_canvas(4500, 5400)
+    draw_text(text, canvas)
+    canvas.save('unicorn.png', dpi=(300, 300))
+    #canvas.save('high_quality.png', dpi=(100, 100))
+    return;
+    
+create_sample()
+
+
